@@ -49,7 +49,7 @@ def scale(a, b):
     >>> scale(0,0)*Vec({'x','y','u'}, {'x':1,'y':1,'u':1}) == Vec({'x','y','u'}, {'u':1})
     True
     '''
-    pass
+    return Mat(({'x','y','u'},{'x','y','u'}),{('x','x'):a,('y','y'):b,('u','u'):1})
 
 ## Task 4
 def rotation(angle):
@@ -64,7 +64,7 @@ def rotation(angle):
     >>> normsq(rotation(math.pi/2) * Vec({'u', 'x', 'y'},{'x':3,'y':1,'u':1}) - Vec({'u', 'x', 'y'},{'u': 1, 'x': -1, 'y': 3.0})) < 1e-15
     True
     '''
-    pass
+    return Mat(({'x','y','u'},{'x','y','u'}),{('x','x'):math.cos(angle),('y','x'):math.sin(angle),('x','y'):-math.sin(angle),('y','y'):math.cos(angle),('u','u'):1})
 
 ## Task 5
 def rotate_about(x,y,angle):
@@ -74,7 +74,7 @@ def rotate_about(x,y,angle):
     Output:  Corresponding 3x3 rotation matrix.
     It might be helpful to use procedures you already wrote.
     '''
-    pass
+    return translation(x,y)*rotation(angle)*translation(-x,-y)
 
 ## Task 6
 def reflect_y():
@@ -89,7 +89,7 @@ def reflect_y():
     >>> reflect_y()*w == Vec({'x','y','u'},{'u':1})
     True
     '''
-    pass
+    return scale(-1.0,1.0)
 
 ## Task 7
 def reflect_x():
@@ -104,7 +104,7 @@ def reflect_x():
     >>> reflect_x()*w == Vec({'x','y','u'},{'u':1})
     True
     '''
-    pass
+    return scale(1.0,-1.0)
 
 ## Task 8    
 def scale_color(scale_r,scale_g,scale_b):
@@ -115,7 +115,7 @@ def scale_color(scale_r,scale_g,scale_b):
     >>> scale_color(1,2,3)*Vec({'r','g','b'},{'r':1,'g':2,'b':3}) == Vec({'r','g','b'},{'r':1,'g':4,'b':9})
     True
     '''
-    pass
+    return Mat(({'r','g','b'},{'r','g','b'}),{('r','r'):scale_r,('g','g'):scale_g,('b','b'):scale_b})
 
 ## Task 9
 def grayscale():
@@ -123,7 +123,8 @@ def grayscale():
     Input: None
     Output: 3x3 greyscale matrix.
     '''
-    pass
+    return Mat(({'r','g','b'},{'r','g','b'}),{('r','r'):77/256,('r','g'):151/256,('r','b'):28/256,('g','r'):77/256,('g','g'):151/256,('g','b'):28/256,('b','r'):77/256,('b','g'):151/256,('b','b'):28/256})
+
 
 ## Task 10
 def reflect_about(x1, y1, x2, y2):
@@ -137,6 +138,8 @@ def reflect_about(x1, y1, x2, y2):
     >>> normsq(reflect_about(0,0,1,1) * Vec({'x','y','u'}, {'x':1, 'u':1}) - Vec({'x', 'u', 'y'},{'u': 1, 'y': 1})) < 1e-15
     True
     '''
-    pass
+    
+    return translation(x1,y1)*reflect_y()*rotation(2*math.atan((y2-y1)/(x2-x1)))*translation(-x1,-y1)
+    
 
 
